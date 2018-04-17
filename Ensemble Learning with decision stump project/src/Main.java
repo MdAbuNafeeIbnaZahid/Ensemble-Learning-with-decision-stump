@@ -31,14 +31,10 @@ public class Main {
         List<Instance> instanceList = bankToInt.getInstanceList(bankInstanceList);
 
 
-        int attrIdx = 0;
-        int incrementStep = 1;
-        Map<Integer, Integer> checkMap = new HashMap<>();
-        for (Instance instance : instanceList)
-        {
-            checkMap.merge( instance.getAttribute(attrIdx), incrementStep, Integer::sum  );
-        }
 
-        System.out.println( checkMap );
+
+
+
+
     }
 }
