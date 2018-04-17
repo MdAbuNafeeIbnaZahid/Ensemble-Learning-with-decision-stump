@@ -1,6 +1,5 @@
 package selecting_probabilistically;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -9,23 +8,48 @@ import java.util.Random;
  */
 public class ProbabilisticSelector {
 
-    private List<ItemWithProbability> itemsWithProb;
-    
+    private List<ItemWithProbability> itemWithProbabilityList;
+    private Double succcessiveSumOfRelativeProbability[];
 
     private double relativeProbabilitySum = 0;
     private Random random = new Random();
 
-    public ProbabilisticSelector(List<ItemWithProbability> itemsWithProb) {
-        this.itemsWithProb = itemsWithProb;
-        for ( ItemWithProbability itemWithProbability : itemsWithProb )
+    public ProbabilisticSelector(List<ItemWithProbability> itemWithProbabilityList) {
+
+        if ( itemWithProbabilityList == null )
         {
-            relativeProbabilitySum += itemWithProbability.getRelativeProbability();
+            throw new NullPointerException();
         }
+
+        this.itemWithProbabilityList = itemWithProbabilityList;
+        succcessiveSumOfRelativeProbability = itemWithProbabilityList.toArray(new Double[itemWithProbabilityList.size()]);
+
+        if ( itemWithProbabilityList.isEmpty() )
+        {
+            return;
+        }
+
+        double firstRelativeProbability = itemWithProbabilityList.get(0).getRelativeProbability();
+        relativeProbabilitySum = firstRelativeProbability;
+        succcessiveSumOfRelativeProbability[0] = firstRelativeProbability;
+
+        for (int i = 1; i < itemWithProbabilityList.size(); i++ )
+        {
+            ItemWithProbability itemWithProbability = itemWithProbabilityList.get(i);
+            double relativeProbability = itemWithProbability.getRelativeProbability();
+            relativeProbabilitySum += relativeProbability;
+            succcessiveSumOfRelativeProbability[i] = succcessiveSumOfRelativeProbability[i-1] + relativeProbability;
+        }
+
+
     }
 
+
+
+    // Till now the getItemProbabilistically() is a O(n) runtime method
     public Object getItemProbabilistically()
     {
-        if ( itemsWithProb.isEmpty() ) // Given an empty iterable
+        if ( itemWithProbabilityList.isEmpty() ) // Given an empty iterable
         {
             return null;
         }
@@ -36,11 +60,11 @@ public class ProbabilisticSelector {
 
         while (probSum < randProbSum)
         {
-            probSum += itemsWithProb.get(idx++).getRelativeProbability();
+            probSum += itemWithProbabilityList.get(idx++).getRelativeProbability();
         }
 
         int selectedIdx = Math.max(0, idx-1);
-        ItemWithProbability selectedItemWithProb = itemsWithProb.get(selectedIdx);
+        ItemWithProbability selectedItemWithProb = itemWithProbabilityList.get(selectedIdx);
         return selectedItemWithProb.getItem();
 
     }
