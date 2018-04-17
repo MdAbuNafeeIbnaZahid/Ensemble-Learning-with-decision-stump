@@ -25,6 +25,10 @@ public class InstanceWithWeight
         weight *= multiplier;
     }
 
+    public double getWeight() {
+        return weight;
+    }
+
     public Instance getInstance() {
         return instance;
     }
@@ -45,5 +49,23 @@ public class InstanceWithWeight
         }
 
         return instanceWithWeightList;
+    }
+
+
+    public static List<Double> getWeightList( List<InstanceWithWeight> instanceWithWeightList )
+    {
+        if ( instanceWithWeightList == null )
+        {
+            throw new NullPointerException();
+        }
+
+        List<Double> weightList = new ArrayList<>();
+        for (InstanceWithWeight instanceWithWeight : instanceWithWeightList)
+        {
+            Double weight = instanceWithWeight.getWeight();
+            weightList.add( weight );
+        }
+
+        return weightList;
     }
 }

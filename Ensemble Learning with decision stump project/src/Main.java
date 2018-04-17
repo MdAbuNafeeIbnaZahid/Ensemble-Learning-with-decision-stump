@@ -2,6 +2,7 @@ import bank_to_int.BankToInt;
 import bank_to_int.bank_tensor.BankDatasetReader;
 import bank_to_int.bank_tensor.BankInstance;
 import bank_to_int.int_tensor.Instance;
+import bank_to_int.int_tensor.InstanceWithWeight;
 
 import java.util.HashMap;
 import java.util.List;
@@ -31,6 +32,11 @@ public class Main {
         List<Instance> instanceList = bankToInt.getInstanceList(bankInstanceList);
 
 
+        List<InstanceWithWeight> instanceWithWeightList = InstanceWithWeight.getInstanceWithWeightList(instanceList);
+
+        List<Double> weightList = InstanceWithWeight.getWeightList(instanceWithWeightList);
+
+        System.out.println(weightList);
 
 
 
