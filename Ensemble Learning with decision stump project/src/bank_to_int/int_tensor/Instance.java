@@ -4,15 +4,13 @@ import bank_to_int.BankToInt;
 import bank_to_int.bank_tensor.BankInstance;
 import bank_to_int.string_to_int.StringToIntConverter;
 
-import java.util.Arrays;
-
 /**
  * Created by nafee on 4/16/18.
  */
 public class Instance {
 
     int[] attributes;
-    int type;
+    int label;
 
     public Instance(BankToInt bankToInt, BankInstance bankInstance)
     {
@@ -25,7 +23,7 @@ public class Instance {
 
 
         StringToIntConverter typeStringToIntConverter = bankToInt.getTypeStringToIntConverter();
-        type = typeStringToIntConverter.getInt( bankInstance.getType() );
+        label = typeStringToIntConverter.getInt( bankInstance.getLabel() );
     }
 
     @Override
@@ -36,7 +34,7 @@ public class Instance {
             ret += attributes[i] + " ";
         }
 
-        ret += type;
+        ret += label;
 
         return ret;
     }
@@ -51,8 +49,8 @@ public class Instance {
         return attributes[attrIdx];
     }
 
-    public int getType()
+    public int getLabel()
     {
-        return type;
+        return label;
     }
 }

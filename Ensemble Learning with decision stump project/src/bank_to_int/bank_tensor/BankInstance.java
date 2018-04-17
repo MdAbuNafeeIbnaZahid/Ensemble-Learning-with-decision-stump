@@ -11,7 +11,7 @@ public class BankInstance {
 
 
     private String[] attributes;
-    private String type;
+    private String label;
 
 
     public BankInstance(String line) {
@@ -21,16 +21,16 @@ public class BankInstance {
         }
 
         String[] tokens = line.split(";");
-        assert tokens.length == ATTRIBUTE_CNT+1; // attributes + type
+        assert tokens.length == ATTRIBUTE_CNT+1; // attributes + label
 
         attributes = Arrays.copyOfRange(tokens, 0, ATTRIBUTE_CNT); // last element of tokens is not attribute
-        // rather it is the type of the instance
+        // rather it is the label of the instance
 
-        type = tokens[ tokens.length-1 ]; // last element of the token is the type
+        label = tokens[ tokens.length-1 ]; // last element of the token is the label
     }
 
-    public String getType() {
-        return type;
+    public String getLabel() {
+        return label;
     }
 
     public String getAttribute(int idx)

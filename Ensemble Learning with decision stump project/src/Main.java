@@ -34,9 +34,9 @@ public class Main {
 
         List<InstanceWithWeight> instanceWithWeightList = InstanceWithWeight.getInstanceWithWeightList(instanceList);
 
-        List<Double> weightList = InstanceWithWeight.getWeightList(instanceWithWeightList);
 
-        System.out.println(weightList);
+
+
 
 
 

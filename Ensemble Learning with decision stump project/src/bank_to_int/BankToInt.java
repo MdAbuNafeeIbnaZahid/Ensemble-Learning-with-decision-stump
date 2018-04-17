@@ -57,7 +57,7 @@ public class BankToInt {
         List<String> typeList = new ArrayList<>();
         for (BankInstance bankInstance : bankInstanceList)
         {
-            String type = bankInstance.getType();
+            String type = bankInstance.getLabel();
             typeList.add(type);
         }
 
