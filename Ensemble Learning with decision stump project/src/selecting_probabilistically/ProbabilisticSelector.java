@@ -2,6 +2,7 @@ package selecting_probabilistically;
 
 import java.util.List;
 import java.util.Random;
+import java.util.ArrayList;
 
 /**
  * Created by nafee on 11/23/17.
@@ -51,7 +52,7 @@ public class ProbabilisticSelector {
     {
         if ( itemWithProbabilityList.isEmpty() ) // Given an empty iterable
         {
-            return null;
+            throw new Error(" itemWithProbabilityList.isEmpty() ");
         }
 
         double randProbSum = random.nextDouble()*relativeProbabilitySum;
@@ -67,5 +68,22 @@ public class ProbabilisticSelector {
         ItemWithProbability selectedItemWithProb = itemWithProbabilityList.get(selectedIdx);
         return selectedItemWithProb.getItem();
 
+    }
+
+    public List<Object> getItemsProbabilistically( int itemCount )
+    {
+        if ( itemWithProbabilityList.isEmpty() )
+        {
+            throw new Error(" itemWithProbabilityList.isEmpty() ");
+        }
+
+        List<Object> objectList = new ArrayList<>();
+        for (int i = 1; i <= itemCount; i++)
+        {
+            Object object = getItemProbabilistically();
+            objectList.add(object);
+        }
+
+        return objectList;
     }
 }

@@ -1,5 +1,6 @@
 package my_util;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -99,8 +100,32 @@ public class MyUtil {
             double entropy = - probability * Math.log(probability);
             totalEntropy += entropy;
         }
-        
+
         return totalEntropy;
 
+    }
+
+    public static void checkNotNull(Object object)
+    {
+        if (object == null)
+        {
+            throw new NullPointerException();
+        }
+    }
+
+
+
+    public static int getMostFrequent( List<Integer> integerList )
+    {
+        checkNotNull(integerList);
+        if ( integerList.isEmpty() )
+        {
+            throw new IllegalArgumentException();
+        }
+
+        Map<Integer, Integer> freqMap = getFreqMap(integerList);
+        Integer keyWithMaxVal = Collections.max(freqMap.entrySet(), Map.Entry.comparingByValue()).getKey();
+
+        return keyWithMaxVal;
     }
 }

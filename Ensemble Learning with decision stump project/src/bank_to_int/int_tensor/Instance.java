@@ -4,6 +4,10 @@ import bank_to_int.BankToInt;
 import bank_to_int.bank_tensor.BankInstance;
 import bank_to_int.string_to_int.StringToIntConverter;
 
+import java.util.List;
+
+import static my_util.MyUtil.checkNotNull;
+
 /**
  * Created by nafee on 4/16/18.
  */
@@ -52,5 +56,32 @@ public class Instance {
     public int getLabel()
     {
         return label;
+    }
+
+    public int getAttributeCnt()
+    {
+        return attributes.length;
+    }
+
+    public static int getCommonAttributeCnt(List<Instance> instanceList)
+    {
+        checkNotNull(instanceList);
+        if ( instanceList.isEmpty() )
+        {
+            return 0;
+        }
+
+        Instance firstInstance = instanceList.get(0);
+        int firstInstanceAttributeCnt = firstInstance.getAttributeCnt();
+        for ( Instance instance : instanceList )
+        {
+            int attributeCnt = instance.getAttributeCnt();
+            if ( attributeCnt != firstInstanceAttributeCnt )
+            {
+                throw new Error(" instanceList has different attribute count ");
+            }
+        }
+
+        return firstInstanceAttributeCnt;
     }
 }
