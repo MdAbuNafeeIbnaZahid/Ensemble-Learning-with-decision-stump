@@ -9,12 +9,14 @@ import static my_util.MyUtil.isNumeric;
 /**
  * Created by nafee on 4/16/18.
  */
-public class TypeStringToInt extends StringToIntConverter {
+public class DiscreteAttributeStringToInt extends AttributeStringToInt {
+
+
 
     int idx = 0;
     Map<String, Integer> map = new HashMap<>();
 
-    public TypeStringToInt(List<String> stringList) {
+    public DiscreteAttributeStringToInt(List<String> stringList) {
         super(stringList);
 
         if (stringList == null)

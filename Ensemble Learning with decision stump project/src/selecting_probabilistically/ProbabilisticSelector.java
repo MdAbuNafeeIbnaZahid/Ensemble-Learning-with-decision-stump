@@ -23,7 +23,8 @@ public class ProbabilisticSelector {
         }
 
         this.itemWithProbabilityList = itemWithProbabilityList;
-        succcessiveSumOfRelativeProbability = itemWithProbabilityList.toArray(new Double[itemWithProbabilityList.size()]);
+        succcessiveSumOfRelativeProbability = new Double[itemWithProbabilityList.size()];
+//        succcessiveSumOfRelativeProbability = itemWithProbabilityList.toArray(new Double[itemWithProbabilityList.size()]);
 
         if ( itemWithProbabilityList.isEmpty() )
         {

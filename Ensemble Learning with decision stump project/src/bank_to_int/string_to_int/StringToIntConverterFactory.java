@@ -22,9 +22,12 @@ public class StringToIntConverterFactory {
         }
         else
         {
-            return new TypeStringToInt(stringList);
+            return new DiscreteAttributeStringToInt(stringList);
         }
     }
 
-
+    public static StringToIntConverter getLabelStringToInt()
+    {
+        return new LabelStringToInt();
+    }
 }

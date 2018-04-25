@@ -32,7 +32,7 @@ public class WeightedMajority {
         this.weightAr = weightAr;
     }
 
-    int giveType(Instance instance)
+    public int giveLabel(Instance instance)
     {
         Map<Integer, Double> typeToWeightMap = new HashMap<>();
 
@@ -41,7 +41,7 @@ public class WeightedMajority {
             Hypothesis hypothesis = hypothesisArray[i];
             double weight = weightAr[i];
 
-            int type = hypothesis.giveType(instance);
+            int type = hypothesis.giveLabel(instance);
 
             typeToWeightMap.merge(type, weight, Double::sum);
         }

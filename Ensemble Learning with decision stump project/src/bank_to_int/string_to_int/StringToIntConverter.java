@@ -7,17 +7,8 @@ import java.util.List;
  */
 public abstract class StringToIntConverter {
 
-    private List<String> stringList;
-
-    public StringToIntConverter(List<String> stringList) {
-        this.stringList = stringList;
-    }
-
-
-
-
-
 
     public abstract int getInt(String string);
+
 
 }

@@ -14,15 +14,14 @@ import java.util.List;
 public class BankToInt {
 
     private StringToIntConverter[] attributeStringToIntConverters;
-    private StringToIntConverter typeStringToIntConverter;
-    private List<BankInstance> bankInstanceList;
 
+    private List<BankInstance> bankInstanceList;
+    private StringToIntConverter labelStringToIntConverter = StringToIntConverterFactory.getLabelStringToInt();
 
     public BankToInt( List<BankInstance> bankInstanceList )
     {
         this.bankInstanceList = bankInstanceList;
-        assignAttributeStringToIntConverter( );
-        assignTypeStringToIntConverter();
+        assignAttributeStringToIntConverter();
     }
 
     private void assignAttributeStringToIntConverter( )
@@ -52,7 +51,7 @@ public class BankToInt {
         return specificAttributeList;
     }
 
-    private List<String> getTypeList()
+    private List<String> getLabelList()
     {
         List<String> typeList = new ArrayList<>();
         for (BankInstance bankInstance : bankInstanceList)
@@ -64,14 +63,9 @@ public class BankToInt {
         return typeList;
     }
 
-    private void assignTypeStringToIntConverter()
-    {
-        List<String> typeList = getTypeList();
-        typeStringToIntConverter = StringToIntConverterFactory.getStringToIntConverter(typeList);
-    }
 
-    public StringToIntConverter getTypeStringToIntConverter() {
-        return typeStringToIntConverter;
+    public StringToIntConverter getLabelStringToIntConverter() {
+        return labelStringToIntConverter;
     }
 
     public StringToIntConverter getAttributeStringToIntConverter(int attributeIdx)
@@ -84,7 +78,7 @@ public class BankToInt {
         return attributeStringToIntConverters[attributeIdx];
     }
 
-    public List<Instance> getInstanceList( List<BankInstance> bankInstanceList )
+    public List<Instance> getInstanceList(  )
     {
         List<Instance> instanceList = new ArrayList<>();
 

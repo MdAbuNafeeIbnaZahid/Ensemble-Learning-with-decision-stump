@@ -42,7 +42,7 @@ public class DecisionStump extends Hypothesis
     }
 
     @Override
-    public int giveType(Instance instance) {
+    public int giveLabel(Instance instance) {
         checkNotNull(instance);
 
         int attribute = instance.getAttribute(attributeIdx);

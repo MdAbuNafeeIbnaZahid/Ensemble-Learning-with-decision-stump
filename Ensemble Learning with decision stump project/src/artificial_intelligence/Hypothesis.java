@@ -10,6 +10,6 @@ import java.util.Map;
 public abstract class Hypothesis {
 
 
-    public abstract int giveType(Instance instance);
+    public abstract int giveLabel(Instance instance);
 
 }

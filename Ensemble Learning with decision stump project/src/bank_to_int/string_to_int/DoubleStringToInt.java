@@ -9,9 +9,9 @@ import static my_util.MyUtil.isNumeric;
 /**
  * Created by nafee on 4/16/18.
  */
-public class DoubleStringToInt extends StringToIntConverter {
+public class DoubleStringToInt extends AttributeStringToInt {
 
-    public static final int NUMERIC_DIVISION_COUNT = 5;
+    public static final int NUMERIC_DIVISION_COUNT = 50;
 
     private double minVal;
     private double maxVal;
@@ -30,7 +30,7 @@ public class DoubleStringToInt extends StringToIntConverter {
 
         if ( ! isNumeric(stringList)  )
         {
-            throw new IllegalArgumentException("TypeStringToInt should be created instead");
+            throw new IllegalArgumentException("DiscreteAttributeStringToInt should be created instead");
         }
 
         doubleList = getDoubleList(stringList);
