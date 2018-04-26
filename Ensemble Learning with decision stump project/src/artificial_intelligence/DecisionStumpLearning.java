@@ -16,7 +16,7 @@ import static  my_util.MyUtil.checkNotNull;
  */
 public class DecisionStumpLearning extends LearningAlgorithm {
 
-    public final int RESAMPLED_TRAINING_SET_SIZE = 1000;
+    public final int RESAMPLED_TRAINING_SET_SIZE = 8000;
 
     public Hypothesis learn(List<Instance> instanceList, double[] weightAr)
     {

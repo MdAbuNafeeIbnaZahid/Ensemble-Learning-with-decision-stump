@@ -8,15 +8,19 @@ import java.util.Map;
  */
 public class LabelStringToInt extends StringToIntConverter {
 
-    public final static String YES = "\"yes\"";  // In dataset Yes is  represented by  "yes" (with quotes)
-    public final static String NO = "\"no\"";   // In dataset No is  represented by  "no" (with quotes)
+    public final static String YES_STRING = "\"yes\"";  // In dataset Yes is  represented by  "yes" (with quotes)
+    public final static String NO_STRING = "\"no\"";   // In dataset No is  represented by  "no" (with quotes)
+
+
+    public final static int YES_INT = 1;
+    public final static int NO_INT = 0;
 
 
     static Map<String, Integer> stringIntegerMap = new HashMap<>();
     static
     {
-        stringIntegerMap.put(NO, 0);
-        stringIntegerMap.put(YES, 1);
+        stringIntegerMap.put(NO_STRING, NO_INT);
+        stringIntegerMap.put(YES_STRING, YES_INT);
     }
 
 

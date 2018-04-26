@@ -1,5 +1,6 @@
 import artificial_intelligence.AdaBoost;
 import artificial_intelligence.DecisionStumpLearning;
+import artificial_intelligence.Testing;
 import artificial_intelligence.WeightedMajority;
 import bank_to_int.BankToInt;
 import bank_to_int.bank_tensor.BankDatasetReader;
@@ -40,16 +41,9 @@ public class Main {
         AdaBoost adaBoost = new AdaBoost();
         WeightedMajority weightedMajority = adaBoost.adaBoost(labelBalancedInstanceList.subList(0, labelBalancedInstanceListSize/2), new DecisionStumpLearning(), 1000);
 
-
-        int cnt = 0;
-        for ( Instance instance : labelBalancedInstanceList.subList(labelBalancedInstanceListSize/2, labelBalancedInstanceListSize) )
-        {
-            if ( weightedMajority.giveLabel(instance) !=  instance.getLabel() )
-            {
-                cnt++;
-            }
-        }
-        System.out.println(cnt);
+        Testing testing = new Testing(weightedMajority, labelBalancedInstanceList);
+        System.out.println( testing.getAccuracy() );
+        System.out.println( testing.getF1Score() );
 
     }
 }

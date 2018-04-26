@@ -12,7 +12,7 @@ import java.util.Map;
 
 import static my_util.MyUtil.checkNotNull;
 
-public class WeightedMajority {
+public class WeightedMajority extends Hypothesis{
     Hypothesis[] hypothesisArray;
     double[] weightAr;
 
