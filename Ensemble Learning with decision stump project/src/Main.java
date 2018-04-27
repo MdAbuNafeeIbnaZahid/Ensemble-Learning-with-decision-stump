@@ -42,7 +42,10 @@ public class Main {
         WeightedMajority weightedMajority = adaBoost.adaBoost(labelBalancedInstanceList.subList(0, labelBalancedInstanceListSize/2), new DecisionStumpLearning(), 1000);
 
         Testing testing = new Testing(weightedMajority, labelBalancedInstanceList);
+
         System.out.println( testing.getAccuracy() );
+        System.out.println( testing.getPrecision() );
+        System.out.println( testing.getRecall() );
         System.out.println( testing.getF1Score() );
 
     }

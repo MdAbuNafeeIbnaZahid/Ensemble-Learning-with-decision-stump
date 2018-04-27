@@ -11,7 +11,7 @@ import static my_util.MyUtil.normalize;
  * Created by nafee on 4/17/18.
  */
 public class AdaBoost {
-    public WeightedMajority adaBoost(List<Instance> instanceList, LearningAlgorithm learningAlgorithm, int hypothesesCnt)
+    public WeightedMajority adaBoost(List<Instance> instanceList, LearningAlgorithm learningAlgorithm, int boostingRoundCnt)
     {
         checkNotNull(instanceList);
         checkNotNull(learningAlgorithm);
@@ -20,10 +20,10 @@ public class AdaBoost {
 
         double w[] = getInitWAr(instanceCnt);
 
-        Hypothesis h[] = new Hypothesis[hypothesesCnt];
-        double z[] = new double[hypothesesCnt];
+        Hypothesis h[] = new Hypothesis[boostingRoundCnt];
+        double z[] = new double[boostingRoundCnt];
 
-        for (int k = 0; k < hypothesesCnt; k++)
+        for (int k = 0; k < boostingRoundCnt; k++)
         {
             Hypothesis hypothesis = learningAlgorithm.learn(instanceList, w);
             h[k] = hypothesis;
