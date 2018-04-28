@@ -1,7 +1,4 @@
-import artificial_intelligence.AdaBoost;
-import artificial_intelligence.DecisionStumpLearning;
-import artificial_intelligence.Testing;
-import artificial_intelligence.WeightedMajority;
+import artificial_intelligence.*;
 import bank_to_int.BankToInt;
 import bank_to_int.bank_tensor.BankDatasetReader;
 import bank_to_int.bank_tensor.BankInstance;
@@ -35,18 +32,55 @@ public class Main {
         BankToInt bankToInt = new BankToInt(bankInstanceList);
         List<Instance> instanceList = bankToInt.getInstanceList();
 
+
         List<Instance> labelBalancedInstanceList = Instance.getZeroOneBalancedInstanceList(instanceList);
         int labelBalancedInstanceListSize = labelBalancedInstanceList.size();
 
-        AdaBoost adaBoost = new AdaBoost();
-        WeightedMajority weightedMajority = adaBoost.adaBoost(labelBalancedInstanceList.subList(0, labelBalancedInstanceListSize/2), new DecisionStumpLearning(), 1000);
 
-        Testing testing = new Testing(weightedMajority, labelBalancedInstanceList);
 
-        System.out.println( testing.getAccuracy() );
-        System.out.println( testing.getPrecision() );
-        System.out.println( testing.getRecall() );
-        System.out.println( testing.getF1Score() );
+        int[] kFoldArray = {5,10,20};
+        int[] boostingRoundArray = {1,5,10,20,30};
+        int fixedKFoldCnt = 10;
+        int fixedBoostingRoundCnt = 30;
+
+
+//        KFoldCrossValidationWithAdaBoost kFoldCrossValidationWithAdaBoost =
+//                new KFoldCrossValidationWithAdaBoost(10, 10, labelBalancedInstanceList);
+
+
+        System.out.println(" fixedKFoldCount = " + fixedKFoldCnt);
+        System.out.println(" Varying boosting Round count ");
+        System.out.println("\n\n");
+        for (int boostingRoundCnt : boostingRoundArray)
+        {
+            KFoldCrossValidationWithAdaBoost kFoldCrossValidationWithAdaBoost =
+                    new KFoldCrossValidationWithAdaBoost(fixedKFoldCnt, boostingRoundCnt, labelBalancedInstanceList);
+
+
+            System.out.println( "boostingRoundCnt = " + boostingRoundCnt );
+            System.out.println( " accuracy =  " + kFoldCrossValidationWithAdaBoost.getAvgAccuracy() );
+            System.out.println("f1Score = " + kFoldCrossValidationWithAdaBoost.getAvgF1Score() );
+            System.out.println("\n\n\n");
+        }
+
+
+        System.out.println("fixed Boosting round count = " + fixedBoostingRoundCnt);
+        System.out.println(" Varying foldCnt ");
+        System.out.println("\n\n");
+        for ( int foldCnt : kFoldArray )
+        {
+            KFoldCrossValidationWithAdaBoost kFoldCrossValidationWithAdaBoost =
+                    new KFoldCrossValidationWithAdaBoost(foldCnt, fixedBoostingRoundCnt, labelBalancedInstanceList);
+
+
+            System.out.println( "foldCnt = " + foldCnt );
+            System.out.println( "accuracy = " + kFoldCrossValidationWithAdaBoost.getAvgAccuracy() );
+            System.out.println( "f1Score = " + kFoldCrossValidationWithAdaBoost.getAvgF1Score() );
+            System.out.println("\n\n\n");
+        }
+
+
+
 
     }
 }

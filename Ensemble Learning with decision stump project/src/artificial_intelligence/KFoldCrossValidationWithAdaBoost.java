@@ -16,10 +16,17 @@ public class KFoldCrossValidationWithAdaBoost {
 
     int stepSize;
 
+    private double avgAccuracy;
+    private double avgF1Score;
+
     public KFoldCrossValidationWithAdaBoost(int foldCnt, int boostingRoundCnt, List<Instance> instanceList) {
         checkNotNull(instanceList);
 
-        if ( foldCnt < 1 || foldCnt > instanceList.size() )
+
+//        System.out.println(" instanceList.size() = " + instanceList.size());
+
+
+        if ( foldCnt < 2 || foldCnt > instanceList.size() )
         {
             throw new IllegalArgumentException();
         }
@@ -34,6 +41,9 @@ public class KFoldCrossValidationWithAdaBoost {
         this.instanceList = instanceList;
 
         stepSize =   (instanceList.size() + foldCnt -1 ) / foldCnt ;
+
+
+        makeAvgAccuracyAndF1Score();
     }
 
 
@@ -70,6 +80,30 @@ public class KFoldCrossValidationWithAdaBoost {
         return trainSet;
     }
 
+    private Testing doAndGetTesting( int testFoldIdx )
+    {
+        checkIfValidFoldIdx(testFoldIdx);
+
+        List<Instance> trainSet = getTrainSet(testFoldIdx);
+//        System.out.println( "trainSet.size() = " + trainSet.size() );
+
+
+
+        List<Instance> testSet = getTestSet(testFoldIdx);
+//        System.out.println(" testSet.size() =  " + testSet.size() );
+
+        assert trainSet.size() + testSet.size() == instanceList.size();
+
+
+        AdaBoostAlgorithm adaBoostAlgorithm = AdaBoostAlgorithm.getAdaBoostWithDecisionStump(boostingRoundCnt);
+
+
+        Hypothesis hypothesisFromAdaBoost = adaBoostAlgorithm.adaBoost(trainSet);
+        Testing testing = new Testing(hypothesisFromAdaBoost, testSet);
+
+        return testing;
+    }
+
     private void checkIfValidFoldIdx(int foldIdx)
     {
         if ( foldIdx < 0 || foldIdx >= foldCnt )
@@ -78,4 +112,43 @@ public class KFoldCrossValidationWithAdaBoost {
         }
     }
 
+    private List<Testing> getTestingList()
+    {
+        List<Testing> testingList = new ArrayList<>();
+        for (int i = 0; i < foldCnt; i++)
+        {
+            Testing testing = doAndGetTesting(i);
+            testingList.add( testing );
+        }
+        return testingList;
+    }
+
+    private void makeAvgAccuracyAndF1Score()
+    {
+        List<Testing> testingList = getTestingList();
+
+        double accuracySum = 0;
+        double f1ScoreSum = 0;
+
+        for (Testing testing : testingList)
+        {
+            accuracySum += testing.getAccuracy();
+//            System.out.println("accuracySum = " + accuracySum);
+
+
+            f1ScoreSum += testing.getF1Score();
+//            System.out.println(" f1ScoreSum = " + f1ScoreSum);
+        }
+
+        avgAccuracy = accuracySum / foldCnt;
+        avgF1Score = f1ScoreSum / foldCnt;
+    }
+
+    public double getAvgAccuracy() {
+        return avgAccuracy;
+    }
+
+    public double getAvgF1Score() {
+        return avgF1Score;
+    }
 }

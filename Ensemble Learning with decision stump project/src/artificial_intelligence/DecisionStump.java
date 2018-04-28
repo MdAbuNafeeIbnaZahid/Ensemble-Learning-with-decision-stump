@@ -49,7 +49,7 @@ public class DecisionStump extends Hypothesis
 
         if ( ! map.containsKey(attribute) ) // We have never seen this attribute while training
         {
-            System.out.println(" CAUTION : Decision stump returning a default value. ");
+//            System.out.println(" CAUTION : Decision stump returning a default value. ");
             return DEFAULT_TYPE;
         }
 

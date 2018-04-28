@@ -10,8 +10,25 @@ import static my_util.MyUtil.normalize;
 /**
  * Created by nafee on 4/17/18.
  */
-public class AdaBoost {
-    public WeightedMajority adaBoost(List<Instance> instanceList, LearningAlgorithm learningAlgorithm, int boostingRoundCnt)
+public class AdaBoostAlgorithm {
+
+
+
+    private LearningAlgorithm learningAlgorithm;
+    private int boostingRoundCnt;
+
+    public AdaBoostAlgorithm(LearningAlgorithm learningAlgorithm, int boostingRoundCnt) {
+        this.learningAlgorithm = learningAlgorithm;
+        this.boostingRoundCnt = boostingRoundCnt;
+    }
+
+    public static AdaBoostAlgorithm getAdaBoostWithDecisionStump(int boostingRoundCnt)
+    {
+        LearningAlgorithm learningAlgorithm = new DecisionStumpLearning();
+        return new AdaBoostAlgorithm(learningAlgorithm, boostingRoundCnt);
+    }
+
+    public WeightedMajority adaBoost(List<Instance> instanceList)
     {
         checkNotNull(instanceList);
         checkNotNull(learningAlgorithm);
@@ -42,6 +59,7 @@ public class AdaBoost {
                 k--;
                 continue;
             }
+            assert error < 0.5;
 
             for (int j = 0; j < instanceCnt; j++)
             {
@@ -52,7 +70,7 @@ public class AdaBoost {
                 }
             }
 
-            System.out.println(error);
+            assert error < 0.5;
 
             normalize(w);
             z[k] = Math.log(  (1-error) / error );

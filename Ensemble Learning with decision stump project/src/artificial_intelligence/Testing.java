@@ -71,6 +71,13 @@ public class Testing {
             }
         }
 
+
+//        System.out.println("truePositiveCnt = " + truePositiveCnt);
+//        System.out.println("falsePositiveCnt = " + falsePositiveCnt);
+//        System.out.println(" trueNegativeCnt =  " + trueNegativeCnt);
+//        System.out.println(" falseNegativeCnt =  " + falseNegativeCnt);
+
+
         correctPredictionCnt = trueNegativeCnt + truePositiveCnt;
         wrongPredictionCnt = falseNegativeCnt + falsePositiveCnt;
 
@@ -80,16 +87,17 @@ public class Testing {
 
     private void calculateAccuracyPrecisionRecall()
     {
-        accuracy = (double) correctPredictionCnt / (correctPredictionCnt + wrongPredictionCnt);
-        precision = (double) truePositiveCnt / ( truePositiveCnt + falsePositiveCnt );
-        recall = (double) trueNegativeCnt / (truePositiveCnt + falseNegativeCnt);
+        accuracy = ( (double) correctPredictionCnt ) / (correctPredictionCnt + wrongPredictionCnt);
+        precision = ( (double) truePositiveCnt ) / ( truePositiveCnt + falsePositiveCnt );
+//        System.out.println( "precision = " + precision );
+
+        recall = ( (double) truePositiveCnt ) / (truePositiveCnt + falseNegativeCnt);
+//        System.out.println("recall = " + recall);
     }
 
     private void calculateF1Score()
     {
-        double precisionInverse = 1/precision;
-        double recallInverse = 1/recall;
-        f1Score = 2 / (precisionInverse + recallInverse);
+        f1Score = ( 2 * precision * recall ) / (precision + recall);
     }
 
     public double getAccuracy() {
